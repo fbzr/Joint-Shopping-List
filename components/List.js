@@ -1,11 +1,20 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {FlatList, Text} from 'react-native';
 
 const List = () => {
+  const data = [
+    {
+      id: 1,
+      title: 'Fabricio',
+    },
+    {
+      id: 2,
+      title: 'Dani',
+    },
+  ];
+
   return (
-    <View>
-      <Text>List</Text>
-    </View>
+    <FlatList data={data} renderItem={({item}) => <Text>{item.title}</Text>} />
   );
 };
 

@@ -15,6 +15,7 @@ import {
   View,
   Text,
 } from 'react-native';
+import List from './components/List';
 
 const App: () => React$Node = () => {
   return (
@@ -23,7 +24,10 @@ const App: () => React$Node = () => {
       <SafeAreaView>
         <ScrollView contentInsetAdjustmentBehavior="automatic">
           <View>
-            <Text>Join Shopping List</Text>
+            <Text>Joint Shopping List</Text>
+          </View>
+          <View>
+            <List />
           </View>
         </ScrollView>
       </SafeAreaView>
