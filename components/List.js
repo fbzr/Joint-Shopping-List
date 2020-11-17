@@ -14,7 +14,10 @@ const List = () => {
   ];
 
   return (
-    <FlatList data={data} renderItem={({item}) => <Text>{item.title}</Text>} />
+    <FlatList
+      data={data}
+      renderItem={({item}) => <Text key={item.id}>{item.title}</Text>}
+    />
   );
 };
 

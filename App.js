@@ -7,6 +7,10 @@
  */
 
 import React from 'react';
+// Redux
+import {Provider} from 'react-redux';
+import store from './stateManagement/store';
+
 import {
   SafeAreaView,
   StatusBar,
@@ -19,7 +23,7 @@ import List from './components/List';
 
 const App: () => React$Node = () => {
   return (
-    <>
+    <Provider store={store}>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -31,7 +35,7 @@ const App: () => React$Node = () => {
           </View>
         </ScrollView>
       </SafeAreaView>
-    </>
+    </Provider>
   );
 };
 
