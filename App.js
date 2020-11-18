@@ -19,26 +19,32 @@ import {
   View,
   Text,
 } from 'react-native';
+
+// components
+import Header from './components/Header';
 import List from './components/List';
 
 const App: () => React$Node = () => {
   return (
     <Provider store={store}>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <View>
-            <Text>Joint Shopping List</Text>
-          </View>
-          <View>
-            <List />
-          </View>
-        </ScrollView>
+      <SafeAreaView style={styles.container}>
+        <Header />
+        <View style={styles.contentContainer}>
+          <List />
+        </View>
       </SafeAreaView>
     </Provider>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
+    flex: 11,
+  },
+});
 
 export default App;
