@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {addList} from '../stateManagement/slices/lists';
+import {addList, removeList} from '../redux/slices/collection';
 import {
   StyleSheet,
   View,
@@ -9,53 +9,45 @@ import {
   SafeAreaView,
   Button,
 } from 'react-native';
+// components
+import Header from './Header';
+import AddInput from './AddInput';
 
 const Collection = () => {
-  const {lists} = useSelector((state) => state);
+  const {lists} = useSelector((state) => state.collection);
   const dispatch = useDispatch();
-
-  const onAddList = async () => {
-    await dispatch(addList({title: 'Fabr'}));
-    console.log(lists);
-  };
 
   const onRemoveList = async () => {
     // await dispatch(removeList());
   };
 
+  const renderItem = ({item}) => (
+    <View key={item.id}>
+      <Text>{item.title}</Text>
+      <Text>{item.id}</Text>
+    </View>
+  );
+
   return (
-    <>
+    <View style={styles.container}>
       <FlatList
-        ListHeaderComponent={<Text>Header</Text>}
+        ListHeaderComponent={<Header title="Collection" />}
         data={lists}
-        renderItem={({item}) => <Text key={item.id}>{item.title}</Text>}
+        renderItem={renderItem}
         ListFooterComponent={<Text>Footer</Text>}
       />
-      <View style={styles.buttonsContainer}>
-        <Button
-          onPress={onAddList}
-          title="Add"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
-        <Button
-          onPress={onRemoveList}
-          title="Remove"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
-      </View>
-    </>
+      <AddInput />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 3,
+    position: 'relative',
+    alignItems: 'center',
   },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+  header: {
+    height: 24,
   },
 });
 

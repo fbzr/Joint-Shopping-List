@@ -9,30 +9,19 @@
 import React from 'react';
 // Redux
 import {Provider} from 'react-redux';
-import store from './stateManagement/store';
+import store from './redux/store';
 
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-} from 'react-native';
+import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 
 // components
-import Header from './components/Header';
-import List from './components/List';
+import Collection from './components/Collection';
 
 const App: () => React$Node = () => {
   return (
     <Provider store={store}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="lignt-content" />
       <SafeAreaView style={styles.container}>
-        <Header />
-        <View style={styles.contentContainer}>
-          <List />
-        </View>
+        <Collection />
       </SafeAreaView>
     </Provider>
   );
@@ -41,9 +30,7 @@ const App: () => React$Node = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  contentContainer: {
-    flex: 11,
+    margin: 10,
   },
 });
 

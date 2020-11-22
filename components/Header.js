@@ -1,22 +1,14 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-const Header = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Joint Shopping List</Text>
-    </View>
-  );
+const Header = ({title}) => {
+  return <Text style={styles.text}>{title || 'Joint Checklist'}</Text>;
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'lightblue',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   text: {
+    color: 'blue',
+    textAlign: 'center',
     fontSize: 24,
   },
 });

@@ -2,7 +2,7 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {nanoid} from 'nanoid';
 
 export const addList = createAsyncThunk(
-  'lists/add',
+  'collection/addList',
   async ({title}, thunkAPI) => {
     // make req to api using await
     // const newList = await listController.add(list);
@@ -15,25 +15,25 @@ export const addList = createAsyncThunk(
 );
 
 export const removeList = createAsyncThunk(
-  'lists/remove',
+  'collection/removeList',
   async ({id}, thunkAPI) => {
     return id;
   },
 );
 
-const listsSlice = createSlice({
-  name: 'lists',
-  initialState: [],
+const collectionSlice = createSlice({
+  name: 'collection',
+  initialState: {lists: []},
   reducers: {},
   extraReducers: {
     [addList.fulfilled]: (state, action) => {
-      state.push(action.payload);
+      state.lists.push(action.payload);
     },
     [removeList.fulfilled]: (state, action) => {
-      state = state.filter((list) => list.id !== action.payload);
+      state.lists = state.lists.filter((list) => list.id !== action.payload);
     },
   },
 });
 
 // export const {addList, removeList} = listsSlice.actions;
-export default listsSlice.reducer;
+export default collectionSlice.reducer;

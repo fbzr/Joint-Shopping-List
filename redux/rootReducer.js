@@ -1,8 +1,8 @@
 import {combineReducers} from '@reduxjs/toolkit';
-import listsReducer from './slices/lists';
+import collectionReducer from './slices/collection';
 
 const rootReducer = combineReducers({
-  lists: listsReducer,
+  collection: collectionReducer,
 });
 
 // export type RootState = ReturnType<typeof rootReducer>;
