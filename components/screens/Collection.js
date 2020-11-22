@@ -30,7 +30,7 @@ const Collection = ({navigation, route}) => {
       <TouchableHighlight
         style={styles.listButton}
         onPress={() => {
-          setCount(count + 1);
+          navigation.push('List', {id: item.id});
         }}>
         <View style={styles.iconContainer}>
           <Icon name="corner-down-right" size={20} color="#333" />

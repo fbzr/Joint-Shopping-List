@@ -16,8 +16,9 @@ import store from './redux/store';
 
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 
-// components
+// Screens
 import Collection from './components/screens/Collection';
+import List from './components/screens/List';
 
 const Root = createStackNavigator();
 
@@ -29,6 +30,7 @@ const App: () => React$Node = () => {
         <NavigationContainer>
           <Root.Navigator>
             <Root.Screen name="Collection" component={Collection}></Root.Screen>
+            <Root.Screen name="List" component={List}></Root.Screen>
           </Root.Navigator>
         </NavigationContainer>
       </SafeAreaView>
