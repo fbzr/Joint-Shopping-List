@@ -23,7 +23,7 @@ const AddInput = ({placeholder}) => {
         style={styles.input}
         onChangeText={(text) => setValue(text)}
         value={value}
-        placeholder={placeholder || 'Add Collection'}
+        placeholder={placeholder || 'Add'}
         onSubmitEditing={onAdd}
       />
     </View>

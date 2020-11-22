@@ -1,19 +1,23 @@
 import React from 'react';
+// Redux
 import {useSelector, useDispatch} from 'react-redux';
-import {addList, removeList} from '../redux/slices/collection';
+import {addList, removeList} from '../../redux/slices/collection';
+// Icon
+import Icon from 'react-native-vector-icons/Feather';
+// React-Native
 import {
   StyleSheet,
   View,
   FlatList,
   Text,
   SafeAreaView,
-  Button,
+  TouchableHighlight,
 } from 'react-native';
-// components
-import Header from './Header';
-import AddInput from './AddInput';
+// Components
+import Header from '../Header';
+import AddInput from '../AddInput';
 
-const Collection = () => {
+const Collection = ({navigation, route}) => {
   const {lists} = useSelector((state) => state.collection);
   const dispatch = useDispatch();
 
@@ -22,9 +26,17 @@ const Collection = () => {
   };
 
   const renderItem = ({item}) => (
-    <View key={item.id}>
-      <Text>{item.title}</Text>
-      <Text>{item.id}</Text>
+    <View key={item.id} style={styles.listItemContainer}>
+      <TouchableHighlight
+        style={styles.listButton}
+        onPress={() => {
+          setCount(count + 1);
+        }}>
+        <View style={styles.iconContainer}>
+          <Icon name="corner-down-right" size={20} color="#333" />
+        </View>
+        <Text>{item.title}</Text>
+      </TouchableHighlight>
     </View>
   );
 
@@ -36,7 +48,7 @@ const Collection = () => {
         renderItem={renderItem}
         ListFooterComponent={<Text>Footer</Text>}
       />
-      <AddInput />
+      <AddInput placeholder="Add a list" />
     </View>
   );
 };
@@ -49,6 +61,11 @@ const styles = StyleSheet.create({
   header: {
     height: 24,
   },
+  listItemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  listButton: {},
 });
 
 export default Collection;

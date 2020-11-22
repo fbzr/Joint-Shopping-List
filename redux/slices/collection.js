@@ -8,7 +8,7 @@ export const addList = createAsyncThunk(
     // const newList = await listController.add(list);
     // return newList;
     return {
-      title,
+      title: title || Date.now(),
       id: nanoid(),
     };
   },

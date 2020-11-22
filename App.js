@@ -7,6 +7,9 @@
  */
 
 import React from 'react';
+// React Navigation
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 // Redux
 import {Provider} from 'react-redux';
 import store from './redux/store';
@@ -14,14 +17,20 @@ import store from './redux/store';
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 
 // components
-import Collection from './components/Collection';
+import Collection from './components/screens/Collection';
+
+const Root = createStackNavigator();
 
 const App: () => React$Node = () => {
   return (
     <Provider store={store}>
       <StatusBar barStyle="lignt-content" />
       <SafeAreaView style={styles.container}>
-        <Collection />
+        <NavigationContainer>
+          <Root.Navigator>
+            <Root.Screen name="Collection" component={Collection}></Root.Screen>
+          </Root.Navigator>
+        </NavigationContainer>
       </SafeAreaView>
     </Provider>
   );
