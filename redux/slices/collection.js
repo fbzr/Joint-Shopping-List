@@ -8,8 +8,9 @@ export const addList = createAsyncThunk(
     // const newList = await listController.add(list);
     // return newList;
     return {
-      title: title || Date.now(),
       id: nanoid(),
+      title: title || Date.now(),
+      createdAt: Date.now(),
     };
   },
 );
@@ -17,20 +18,61 @@ export const addList = createAsyncThunk(
 export const removeList = createAsyncThunk(
   'collection/removeList',
   async ({id}, thunkAPI) => {
+    // TODO: backend request
     return id;
+  },
+);
+
+export const addItem = createAsyncThunk(
+  'collection/addItemToList',
+  async ({listId, title}, thunkAPI) => {
+    // TODO: backend request
+    return {
+      id: nanoid(),
+      title,
+      listId,
+      createdAt,
+    };
+  },
+);
+
+export const removeItem = createAsyncThunk(
+  'collection/removeItemFromList',
+  async ({listId, itemId}, thunkAPI) => {
+    // TODO: backend request
+    return {
+      id: itemId,
+      listId,
+    };
   },
 );
 
 const collectionSlice = createSlice({
   name: 'collection',
-  initialState: {lists: []},
+  initialState: {lists: {}, loading: 'idle'},
   reducers: {},
   extraReducers: {
+    // RTK allows DIRECT STATE MUTATION because it uses immer under the hood
+
     [addList.fulfilled]: (state, action) => {
-      state.lists.push(action.payload);
+      state.lists[action.id] = action.payload;
     },
+
     [removeList.fulfilled]: (state, action) => {
-      state.lists = state.lists.filter((list) => list.id !== action.payload);
+      const id = action.payload;
+      delete state.lists[id];
+    },
+
+    [addItem.fulfilled]: (state, action) => {
+      const {listId} = action.payload;
+      state.lists[listId].push(action.payload);
+    },
+
+    [removeItem.fulfilled]: (state, action) => {
+      const {listId, id} = action.payload;
+      state.lists[listId] = state.lists[listId].filter(
+        (item) => item.id !== id,
+      );
     },
   },
 });
