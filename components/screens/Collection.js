@@ -25,6 +25,10 @@ const Collection = ({navigation, route}) => {
     // await dispatch(removeList());
   };
 
+  const onAddList = async (title) => {
+    await dispatch(addList({title}));
+  };
+
   const renderItem = ({item}) => (
     <View key={item.id} style={styles.listItemContainer}>
       <TouchableHighlight
@@ -48,7 +52,7 @@ const Collection = ({navigation, route}) => {
         renderItem={renderItem}
         ListFooterComponent={<Text>Footer</Text>}
       />
-      <AddInput placeholder="Add a list" />
+      <AddInput placeholder="Add a list" actionFunc={onAddList} />
     </View>
   );
 };

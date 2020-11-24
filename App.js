@@ -5,7 +5,7 @@
  * @format
  * @flow strict-local
  */
-
+import 'react-native-gesture-handler';
 import React from 'react';
 // React Navigation
 import {NavigationContainer} from '@react-navigation/native';
@@ -25,15 +25,15 @@ const Root = createStackNavigator();
 const App: () => React$Node = () => {
   return (
     <Provider store={store}>
-      <StatusBar barStyle="lignt-content" />
-      <SafeAreaView style={styles.container}>
-        <NavigationContainer>
+      <NavigationContainer>
+        <StatusBar barStyle="lignt-content" />
+        <SafeAreaView style={styles.container}>
           <Root.Navigator>
             <Root.Screen name="Collection" component={Collection}></Root.Screen>
             <Root.Screen name="List" component={List}></Root.Screen>
           </Root.Navigator>
-        </NavigationContainer>
-      </SafeAreaView>
+        </SafeAreaView>
+      </NavigationContainer>
     </Provider>
   );
 };

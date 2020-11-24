@@ -11,6 +11,7 @@ export const addList = createAsyncThunk(
       id: nanoid(),
       title: title || Date.now(),
       createdAt: Date.now(),
+      items: [],
     };
   },
 );
@@ -49,7 +50,10 @@ export const removeItem = createAsyncThunk(
 
 const collectionSlice = createSlice({
   name: 'collection',
-  initialState: {lists: {}, loading: 'idle'},
+  initialState: {
+    lists: {}, 
+    loading: 'idle'
+  },
   reducers: {},
   extraReducers: {
     // RTK allows DIRECT STATE MUTATION because it uses immer under the hood
@@ -65,12 +69,12 @@ const collectionSlice = createSlice({
 
     [addItem.fulfilled]: (state, action) => {
       const {listId} = action.payload;
-      state.lists[listId].push(action.payload);
+      state.lists[listId].items.push(action.payload);
     },
 
     [removeItem.fulfilled]: (state, action) => {
       const {listId, id} = action.payload;
-      state.lists[listId] = state.lists[listId].filter(
+      state.lists[listId].items = state.lists[listId].items.filter(
         (item) => item.id !== id,
       );
     },

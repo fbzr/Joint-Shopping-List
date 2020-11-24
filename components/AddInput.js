@@ -1,16 +1,13 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
 import {StyleSheet, View, TextInput, TouchableHighlight} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {addList} from '../redux/slices/collection';
 
-const AddInput = ({placeholder}) => {
+const AddInput = ({placeholder, actionFunc}) => {
   const [value, setValue] = useState('');
   const [selected, setClicked] = useState(false);
-  const dispatch = useDispatch();
 
   const onAdd = async () => {
-    await dispatch(addList({title: value}));
+    await actionFunc(value);
     setValue('');
   };
 
