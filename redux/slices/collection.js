@@ -32,6 +32,7 @@ export const addItem = createAsyncThunk(
       id: nanoid(),
       title,
       listId,
+      done: false,
       createdAt: Date.now(),
     };
   },
