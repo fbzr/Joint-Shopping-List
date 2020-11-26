@@ -29,8 +29,12 @@ const App: () => React$Node = () => {
       <SafeAreaView style={styles.container}>
         <NavigationContainer>
           <Root.Navigator>
-            <Root.Screen name="Collection" component={Collection}></Root.Screen>
-            <Root.Screen name="List" component={List}></Root.Screen>
+            <Root.Screen name="Collection" component={Collection} />
+            <Root.Screen
+              name="List"
+              component={List}
+              options={({route}) => ({title: route.params.title})}
+            />
           </Root.Navigator>
         </NavigationContainer>
       </SafeAreaView>
