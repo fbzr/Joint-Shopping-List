@@ -25,15 +25,15 @@ const Root = createStackNavigator();
 const App: () => React$Node = () => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <StatusBar barStyle="lignt-content" />
-        <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="lignt-content" />
+      <SafeAreaView style={styles.container}>
+        <NavigationContainer>
           <Root.Navigator>
             <Root.Screen name="Collection" component={Collection}></Root.Screen>
             <Root.Screen name="List" component={List}></Root.Screen>
           </Root.Navigator>
-        </SafeAreaView>
-      </NavigationContainer>
+        </NavigationContainer>
+      </SafeAreaView>
     </Provider>
   );
 };
@@ -41,6 +41,7 @@ const App: () => React$Node = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     margin: 10,
   },
 });

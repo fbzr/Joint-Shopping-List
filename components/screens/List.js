@@ -1,12 +1,14 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 // Redux
 import {useSelector, useDispatch} from 'react-redux';
 import {addItem, removeItem} from '../../redux/slices/collection';
+// Components
+import AddInput from '../AddInput';
 
 // list id is passed through the route param
 const List = ({navigation, route}) => {
-  const list = useSelector((state) => state.lists[route.params.id]);
+  const list = useSelector((state) => state.collection.lists[route.params.id]);
   const dispatch = useDispatch();
 
   const onAddItem = async (title) => {
@@ -23,12 +25,7 @@ const List = ({navigation, route}) => {
     route.params.id && (
       <View>
         <Text>{`List ID: ${route.params.id}`}</Text>
-        <FlatList
-          ListHeaderComponent={<Header title="Collection" />}
-          data={list.items}
-          renderItem={renderItem}
-          ListFooterComponent={<Text>Footer</Text>}
-        />
+        <FlatList data={Object.values(list.items)} renderItem={renderItem} />
         <AddInput placeholder="Add a new item" actionFunc={onAddItem} />
       </View>
     )

@@ -14,7 +14,6 @@ import {
   TouchableHighlight,
 } from 'react-native';
 // Components
-import Header from '../Header';
 import AddInput from '../AddInput';
 
 const Collection = ({navigation, route}) => {
@@ -30,28 +29,25 @@ const Collection = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => (
-    <View key={item.id} style={styles.listItemContainer}>
+    <View key={item.id}>
       <TouchableHighlight
         style={styles.listButton}
         onPress={() => {
           navigation.push('List', {id: item.id});
         }}>
-        <View style={styles.iconContainer}>
-          <Icon name="corner-down-right" size={20} color="#333" />
+        <View style={styles.listContainer}>
+          <View style={styles.iconContainer}>
+            <Icon name="corner-down-right" size={20} color="#333" />
+          </View>
+          <Text>{item.title}</Text>
         </View>
-        <Text>{item.title}</Text>
       </TouchableHighlight>
     </View>
   );
 
   return (
     <View style={styles.container}>
-      <FlatList
-        ListHeaderComponent={<Header title="Collection" />}
-        data={lists}
-        renderItem={renderItem}
-        ListFooterComponent={<Text>Footer</Text>}
-      />
+      <FlatList data={Object.values(lists)} renderItem={renderItem} />
       <AddInput placeholder="Add a list" actionFunc={onAddList} />
     </View>
   );
@@ -59,13 +55,11 @@ const Collection = ({navigation, route}) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
     alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
-  header: {
-    height: 24,
-  },
-  listItemContainer: {
+  listContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
