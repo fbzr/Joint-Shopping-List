@@ -33,7 +33,9 @@ const App: () => React$Node = () => {
             <Root.Screen
               name="List"
               component={List}
-              options={({route}) => ({title: route.params.title})}
+              options={({route}) => ({
+                title: route.params.title,
+              })}
             />
           </Root.Navigator>
         </NavigationContainer>

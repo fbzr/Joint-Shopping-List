@@ -25,16 +25,19 @@ const Collection = ({navigation, route}) => {
   };
 
   const onAddList = async (title) => {
-    await dispatch(addList({title}));
+    const {payload} = await dispatch(addList({title}));
+    navigation.push('List', {id: payload.id, title: payload.title});
+  };
+
+  const onPressList = (list) => {
+    navigation.push('List', {id: list.id, title: list.title});
   };
 
   const renderItem = ({item}) => (
     <View key={item.id}>
       <TouchableHighlight
         style={styles.listButton}
-        onPress={() => {
-          navigation.push('List', {id: item.id, title: item.title});
-        }}>
+        onPress={() => onPressList(item)}>
         <View style={styles.listContainer}>
           <View style={styles.iconContainer}>
             <Icon name="corner-down-right" size={20} color="#333" />
@@ -57,7 +60,6 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
   },
   listContainer: {
     flexDirection: 'row',

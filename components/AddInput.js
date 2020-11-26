@@ -7,8 +7,10 @@ const AddInput = ({placeholder, actionFunc}) => {
   const [selected, setClicked] = useState(false);
 
   const onAdd = async () => {
-    await actionFunc(value);
-    setValue('');
+    if (value) {
+      await actionFunc(value);
+      setValue('');
+    }
   };
 
   return (

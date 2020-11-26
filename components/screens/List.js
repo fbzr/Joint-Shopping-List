@@ -24,7 +24,6 @@ const List = ({navigation, route}) => {
   return (
     route.params.id && (
       <View>
-        <Text>{`List ID: ${route.params.id}`}</Text>
         <FlatList data={Object.values(list.items)} renderItem={renderItem} />
         <AddInput placeholder="Add a new item" actionFunc={onAddItem} />
       </View>
