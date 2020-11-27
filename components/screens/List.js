@@ -14,7 +14,7 @@ const List = ({navigation, route}) => {
   const list = useSelector((state) => state.collection.lists[route.params.id]);
   const dispatch = useDispatch();
 
-  const [newTitle, setNewTitle] = useState();
+  const [newTitle, setNewTitle] = useState('');
 
   const onAddItem = async (title) => {
     await dispatch(addItem({listId: route.params.id, title}));
@@ -29,22 +29,20 @@ const List = ({navigation, route}) => {
   };
 
   const renderItem = ({item}) => (
-    <>
-      <View key={item.id} style={styles.itemContainer}>
-        <CheckBox value={item.done} onValueChange={() => onToggleItem(item)} />
-        <TextInput
-          style={[styles.itemTitle, item.done ? styles.itemDone : {}]}
-          onChangeText={(text) => setNewTitle(text)}
-          onBlur={() => editTitle(item)}
-          value={item.title}
-          onSubmitEditing={() => editTitle(item)}
-        />
+    <View key={item.id} style={styles.itemContainer}>
+      <CheckBox value={item.done} onValueChange={() => onToggleItem(item)} />
+      <TextInput
+        style={[styles.itemTitle, item.done ? styles.itemDone : {}]}
+        onChangeText={(text) => setNewTitle(text)}
+        onBlur={() => editTitle(item)}
+        value={newTitle || item.title}
+        onSubmitEditing={() => editTitle(item)}
+      />
 
-        <View style={styles.iconContainer}>
-          <Icon name="trash" size={20} color="#333" />
-        </View>
+      <View style={styles.iconContainer}>
+        <Icon name="trash" size={20} color="#333" />
       </View>
-    </>
+    </View>
   );
 
   return (
