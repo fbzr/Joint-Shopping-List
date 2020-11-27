@@ -5,7 +5,12 @@ import CheckBox from '@react-native-community/checkbox';
 import Icon from 'react-native-vector-icons/Feather';
 // Redux
 import {useSelector, useDispatch} from 'react-redux';
-import {addItem, removeItem, toggleItem} from '../../redux/slices/collection';
+import {
+  addItem,
+  removeItem,
+  toggleItem,
+  patchItem,
+} from '../../redux/slices/collection';
 // Components
 import AddInput from '../AddInput';
 
@@ -26,6 +31,8 @@ const List = ({navigation, route}) => {
 
   const editTitle = async ({id, listId}) => {
     console.log('edit');
+    await dispatch(patchItem({listId, id, args: {title: newTitle}}));
+    setNewTitle('');
   };
 
   const renderItem = ({item}) => (

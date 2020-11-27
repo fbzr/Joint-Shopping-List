@@ -62,23 +62,25 @@ export const toggleItem = createAsyncThunk(
 export const patchList = createAsyncThunk(
   'collection/patchList',
   async ({id, args}, thunkAPI) => {
-  // TODO: backend patch
-  return {
-    id,
-    ...args
-  }
-}
+    // TODO: backend patch
+    return {
+      id,
+      ...args,
+    };
+  },
+);
 
 export const patchItem = createAsyncThunk(
   'collection/patchItem',
   async ({listId, itemId, args}, thunkAPI) => {
-  // TODO: backend patch
-  return {
-    id: itemId,
-    listId,
-    ...args
-  }
-}
+    // TODO: backend patch
+    return {
+      id: itemId,
+      listId,
+      ...args,
+    };
+  },
+);
 
 const collectionSlice = createSlice({
   name: 'collection',
@@ -109,7 +111,7 @@ const collectionSlice = createSlice({
 
     [patchList.fulfilled]: (state, action) => {
       const {id} = action.payload;
-      state.lists[id] = {...state.lists[id], ...action.payload}
+      state.lists[id] = {...state.lists[id], ...action.payload};
     },
 
     [addItem.fulfilled]: (state, action) => {
@@ -129,7 +131,10 @@ const collectionSlice = createSlice({
 
     [patchItem.fulfilled]: (state, action) => {
       const {listId, id} = action.payload;
-      state.lists[listId].items[id] = {...state.lists[listId].items[id], ...action.payload}
+      state.lists[listId].items[id] = {
+        ...state.lists[listId].items[id],
+        ...action.payload,
+      };
     },
   },
 });
