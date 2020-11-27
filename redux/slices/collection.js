@@ -40,8 +40,18 @@ export const addItem = createAsyncThunk(
 
 export const removeItem = createAsyncThunk(
   'collection/removeItemFromList',
-  async ({listId, itemId}, thunkAPI) => {
+  async ({itemId, listId}, thunkAPI) => {
     // TODO: backend request
+    return {
+      id: itemId,
+      listId,
+    };
+  },
+);
+
+export const toggleItem = createAsyncThunk(
+  'collection/toggleItem',
+  async ({itemId, listId}, thunkAPI) => {
     return {
       id: itemId,
       listId,
@@ -77,6 +87,11 @@ const collectionSlice = createSlice({
     [removeItem.fulfilled]: (state, action) => {
       const {listId, id} = action.payload;
       delete state.lists[listId].items[id];
+    },
+
+    [toggleItem.fulfilled]: (state, action) => {
+      const {listId, id} = action.payload;
+      state.lists[listId].items[id].done = !state.lists[listId].items[id].done;
     },
   },
 });
