@@ -62,7 +62,14 @@ export const toggleItem = createAsyncThunk(
 const collectionSlice = createSlice({
   name: 'collection',
   initialState: {
-    lists: {},
+    lists: {
+      abcdefg: {
+        id: 'abcdefg',
+        title: 'Test',
+        createdAt: Date.now(),
+        items: {},
+      },
+    },
     loading: 'idle',
   },
   reducers: {},

@@ -42,14 +42,14 @@ const Collection = ({navigation, route}) => {
           <View style={styles.iconContainer}>
             <Icon name="corner-down-right" size={20} color="#333" />
           </View>
-          <Text>{item.title}</Text>
+          <Text style={styles.title}>{item.title}</Text>
         </View>
       </TouchableHighlight>
     </View>
   );
 
   return (
-    <View style={styles.container}>
+    <View>
       <FlatList data={Object.values(lists)} renderItem={renderItem} />
       <AddInput placeholder="Add a list" actionFunc={onAddList} />
     </View>
@@ -57,15 +57,20 @@ const Collection = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   listContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  listButton: {},
+  listButton: {
+    height: 65,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    paddingLeft: 6,
+    paddingRight: 6,
+  },
+  title: {
+    fontSize: 18,
+  },
 });
 
 export default Collection;

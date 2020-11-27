@@ -1,5 +1,5 @@
-import React from 'react';
-import {StyleSheet, View, Text, FlatList} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, Text, FlatList, TextInput} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 // Icon
 import Icon from 'react-native-vector-icons/Feather';
@@ -14,6 +14,8 @@ const List = ({navigation, route}) => {
   const list = useSelector((state) => state.collection.lists[route.params.id]);
   const dispatch = useDispatch();
 
+  const [newTitle, setNewTitle] = useState();
+
   const onAddItem = async (title) => {
     await dispatch(addItem({listId: route.params.id, title}));
   };
@@ -22,16 +24,27 @@ const List = ({navigation, route}) => {
     await dispatch(toggleItem({itemId: id, listId}));
   };
 
+  const editTitle = async ({id, listId}) => {
+    console.log('edit');
+  };
+
   const renderItem = ({item}) => (
-    <View key={item.id} style={styles.itemContainer}>
-      <CheckBox value={item.done} onValueChange={() => onToggleItem(item)} />
-      <Text style={[styles.itemTitle, item.done ? styles.itemDone : {}]}>
-        {item.title}
-      </Text>
-      <View style={styles.iconContainer}>
-        <Icon name="trash" size={20} color="#333" />
+    <>
+      <View key={item.id} style={styles.itemContainer}>
+        <CheckBox value={item.done} onValueChange={() => onToggleItem(item)} />
+        <TextInput
+          style={[styles.itemTitle, item.done ? styles.itemDone : {}]}
+          onChangeText={(text) => setNewTitle(text)}
+          onBlur={() => editTitle(item)}
+          value={item.title}
+          onSubmitEditing={() => editTitle(item)}
+        />
+
+        <View style={styles.iconContainer}>
+          <Icon name="trash" size={20} color="#333" />
+        </View>
       </View>
-    </View>
+    </>
   );
 
   return (
