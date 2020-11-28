@@ -26,7 +26,7 @@ const List = ({navigation, route}) => {
   };
 
   const onToggleItem = async ({id, listId}) => {
-    await dispatch(toggleItem({itemId: id, listId}));
+    await dispatch(toggleItem({id, listId}));
   };
 
   const editTitle = async ({id, listId}) => {

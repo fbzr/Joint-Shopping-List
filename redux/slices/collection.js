@@ -40,10 +40,10 @@ export const addItem = createAsyncThunk(
 
 export const removeItem = createAsyncThunk(
   'collection/removeItemFromList',
-  async ({itemId, listId}, thunkAPI) => {
+  async ({id, listId}, thunkAPI) => {
     // TODO: backend request
     return {
-      id: itemId,
+      id,
       listId,
     };
   },
@@ -51,9 +51,9 @@ export const removeItem = createAsyncThunk(
 
 export const toggleItem = createAsyncThunk(
   'collection/toggleItem',
-  async ({itemId, listId}, thunkAPI) => {
+  async ({id, listId}, thunkAPI) => {
     return {
-      id: itemId,
+      id,
       listId,
     };
   },
@@ -72,10 +72,11 @@ export const patchList = createAsyncThunk(
 
 export const patchItem = createAsyncThunk(
   'collection/patchItem',
-  async ({listId, itemId, args}, thunkAPI) => {
+  async ({id, listId, args}, thunkAPI) => {
+    console.log('***PATCH_ITEM***\n', args);
     // TODO: backend patch
     return {
-      id: itemId,
+      id,
       listId,
       ...args,
     };
