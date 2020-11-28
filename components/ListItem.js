@@ -1,16 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, FlatList, TextInput} from 'react-native';
+import {StyleSheet, View, TextInput, TouchableHighlight} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 // Icon
 import Icon from 'react-native-vector-icons/Feather';
 // Redux
 import {useSelector, useDispatch} from 'react-redux';
-import {
-  addItem,
-  removeItem,
-  toggleItem,
-  patchItem,
-} from '../redux/slices/collection';
+import {removeItem, toggleItem, patchItem} from '../redux/slices/collection';
 // Components
 import AddInput from './AddInput';
 
@@ -32,6 +27,10 @@ const ListItem = ({item}) => {
     }
   };
 
+  const handleDelete = async () => {
+    await dispatch(removeItem({id: item.id, listId: item.listId}));
+  };
+
   return (
     <View key={item.id} style={styles.itemContainer}>
       <CheckBox
@@ -45,10 +44,11 @@ const ListItem = ({item}) => {
         value={newTitle}
         onSubmitEditing={handleEditTitle}
       />
-
-      <View style={styles.iconContainer}>
-        <Icon name="trash" size={20} color="#333" />
-      </View>
+      <TouchableHighlight onPress={handleDelete}>
+        <View style={styles.iconContainer}>
+          <Icon name="trash" size={20} color="#333" />
+        </View>
+      </TouchableHighlight>
     </View>
   );
 };

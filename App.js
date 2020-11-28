@@ -14,7 +14,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Provider} from 'react-redux';
 import store from './redux/store';
 
-import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {SafeAreaView, StatusBar, StyleSheet, Button} from 'react-native';
 
 // Screens
 import Collection from './components/screens/Collection';
@@ -28,7 +28,13 @@ const App: () => React$Node = () => {
       <StatusBar barStyle="lignt-content" />
       <SafeAreaView style={styles.container}>
         <NavigationContainer>
-          <Root.Navigator>
+          <Root.Navigator
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: '#f4511e',
+              },
+              headerTintColor: '#fff',
+            }}>
             <Root.Screen name="Collection" component={Collection} />
             <Root.Screen
               name="List"
@@ -47,9 +53,6 @@ const App: () => React$Node = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10,
-    marginTop: 0,
-    marginBottom: 0,
   },
 });
 
