@@ -11,7 +11,7 @@ import {
   FlatList,
   Text,
   SafeAreaView,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 // Components
 import AddInput from '../AddInput';
@@ -35,21 +35,21 @@ const Collection = ({navigation, route}) => {
 
   const renderItem = ({item}) => (
     <View key={item.id}>
-      <TouchableHighlight
+      <TouchableOpacity
         style={styles.listButton}
         onPress={() => onPressList(item)}>
-        <View style={styles.listContainer}>
+        <View style={styles.itemContainer}>
           <View style={styles.iconContainer}>
             <Icon name="corner-down-right" size={20} color="#333" />
           </View>
           <Text style={styles.title}>{item.title}</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   );
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       <FlatList data={Object.values(lists)} renderItem={renderItem} />
       <AddInput placeholder="Add a list" actionFunc={onAddList} />
     </View>
@@ -57,7 +57,7 @@ const Collection = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  listContainer: {
+  itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     height: 65,
     justifyContent: 'center',
     backgroundColor: 'white',
-    paddingLeft: 6,
-    paddingRight: 6,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   title: {
     fontSize: 18,

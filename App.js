@@ -25,7 +25,7 @@ const Root = createStackNavigator();
 const App: () => React$Node = () => {
   return (
     <Provider store={store}>
-      <StatusBar barStyle="lignt-content" />
+      <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.container}>
         <NavigationContainer>
           <Root.Navigator
@@ -33,7 +33,12 @@ const App: () => React$Node = () => {
               headerStyle: {
                 backgroundColor: '#f4511e',
               },
+              headerTitleAlign: 'center',
               headerTintColor: '#fff',
+              cardStyle: {backgroundColor: '#FFFFFF'},
+              screenStyle: {
+                margin: 30,
+              },
             }}>
             <Root.Screen name="Collection" component={Collection} />
             <Root.Screen

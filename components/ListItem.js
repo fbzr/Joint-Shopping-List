@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, TextInput, TouchableHighlight} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 // Icon
 import Icon from 'react-native-vector-icons/Feather';
@@ -9,11 +15,12 @@ import {removeItem, toggleItem, patchItem} from '../redux/slices/collection';
 // Components
 import AddInput from './AddInput';
 
-const ListItem = ({item}) => {
+const ListItem = ({item, selected, setSelected}) => {
   const dispatch = useDispatch();
   const [newTitle, setNewTitle] = useState(item.title);
 
   const handleToggleItem = async ({id, listId}) => {
+    setSelected('');
     await dispatch(toggleItem({id, listId}));
   };
 
@@ -40,15 +47,19 @@ const ListItem = ({item}) => {
       <TextInput
         style={[styles.itemTitle, item.done ? styles.itemDone : {}]}
         onChangeText={(text) => setNewTitle(text)}
+        editable={!item.done}
         onBlur={handleEditTitle}
+        onFocus={() => setSelected(item.id)}
         value={newTitle}
         onSubmitEditing={handleEditTitle}
       />
-      <TouchableHighlight onPress={handleDelete}>
-        <View style={styles.iconContainer}>
-          <Icon name="trash" size={20} color="#333" />
-        </View>
-      </TouchableHighlight>
+      {selected && (
+        <TouchableOpacity onPress={handleDelete}>
+          <View style={styles.iconContainer}>
+            <Icon name="x" size={20} color="#333" />
+          </View>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -58,6 +69,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 65,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   itemTitle: {
     flex: 1,

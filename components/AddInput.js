@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   input: {
-    height: 40,
+    fontSize: 16,
     width: '100%',
   },
 });
