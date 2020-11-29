@@ -17,7 +17,7 @@ import {
 import AddInput from '../AddInput';
 
 const Collection = ({navigation, route}) => {
-  const {lists} = useSelector((state) => state.collection);
+  const lists = useSelector((state) => Object.values(state.collection.lists));
   const dispatch = useDispatch();
 
   const onRemoveList = async () => {
@@ -49,14 +49,28 @@ const Collection = ({navigation, route}) => {
   );
 
   return (
-    <View style={{flex: 1}}>
-      <FlatList data={Object.values(lists)} renderItem={renderItem} />
+    <View style={styles.container}>
+      {Object.keys(lists).length ? (
+        <FlatList data={lists} renderItem={renderItem} />
+      ) : (
+        <Text style={styles.emptyText}>No lists added</Text>
+      )}
+
       <AddInput placeholder="Add a list" actionFunc={onAddList} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  emptyText: {
+    flex: 1,
+    fontSize: 20,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',

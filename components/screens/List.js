@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList, Text} from 'react-native';
 // Redux
 import {useSelector, useDispatch} from 'react-redux';
 import {addItem} from '../../redux/slices/collection';
@@ -10,6 +10,8 @@ import ListItem from '../ListItem';
 // list id is passed through the route param
 const List = ({navigation, route}) => {
   const list = useSelector((state) => state.collection.lists[route.params.id]);
+  const items = Object.values(list.items);
+
   const dispatch = useDispatch();
 
   const [selectedItem, setSelectedItem] = useState('');
@@ -22,21 +24,35 @@ const List = ({navigation, route}) => {
   return (
     route.params.id && (
       <View style={{flex: 1}}>
-        <FlatList
-          keyboardShouldPersistTaps="handled"
-          data={Object.values(list.items)}
-          renderItem={({item}) => (
-            <ListItem
-              item={item}
-              setSelected={setSelectedItem}
-              selected={item.id === selectedItem}
-            />
-          )}
-        />
+        {items.length ? (
+          <FlatList
+            keyboardShouldPersistTaps="handled"
+            data={items}
+            renderItem={({item}) => (
+              <ListItem
+                item={item}
+                setSelected={setSelectedItem}
+                selected={item.id === selectedItem}
+              />
+            )}
+          />
+        ) : (
+          <Text style={styles.emptyText}>This list is empty</Text>
+        )}
+
         <AddInput placeholder="Add a new item" actionFunc={onAddItem} />
       </View>
     )
   );
 };
+
+const styles = StyleSheet.create({
+  emptyText: {
+    flex: 1,
+    fontSize: 20,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+});
 
 export default List;
