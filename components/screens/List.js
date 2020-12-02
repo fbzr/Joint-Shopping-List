@@ -12,8 +12,7 @@ import Icon from 'react-native-vector-icons/Feather';
 // list id is passed through the route param
 const List = ({navigation, route}) => {
   const list = useSelector((state) => state.collection.lists[route.params.id]);
-  const items = Object.values(list.items);
-
+  const items = list ? Object.values(list.items) : null;
   const dispatch = useDispatch();
 
   const [selectedItem, setSelectedItem] = useState('');
@@ -33,8 +32,8 @@ const List = ({navigation, route}) => {
   }, [navigation]);
 
   const handleDeleteList = async () => {
-    navigation.push('Collection');
     await dispatch(removeList({id: list.id}));
+    navigation.push('Collection');
   };
 
   const handleAddItem = async (title) => {
@@ -42,29 +41,27 @@ const List = ({navigation, route}) => {
     setSelectedItem('');
   };
 
-  return (
-    route.params.id && (
-      <View style={{flex: 1}}>
-        {items.length ? (
-          <FlatList
-            keyboardShouldPersistTaps="handled"
-            data={items}
-            renderItem={({item}) => (
-              <ListItem
-                item={item}
-                setSelected={setSelectedItem}
-                selected={item.id === selectedItem}
-              />
-            )}
-          />
-        ) : (
-          <Text style={styles.emptyText}>This list is empty</Text>
-        )}
+  return list ? (
+    <View style={{flex: 1}}>
+      {items.length ? (
+        <FlatList
+          keyboardShouldPersistTaps="handled"
+          data={items}
+          renderItem={({item}) => (
+            <ListItem
+              item={item}
+              setSelected={setSelectedItem}
+              selected={item.id === selectedItem}
+            />
+          )}
+        />
+      ) : (
+        <Text style={styles.emptyText}>This list is empty</Text>
+      )}
 
-        <AddInput placeholder="Add a new item" actionFunc={handleAddItem} />
-      </View>
-    )
-  );
+      <AddInput placeholder="Add a new item" actionFunc={handleAddItem} />
+    </View>
+  ) : null;
 };
 
 const styles = StyleSheet.create({
