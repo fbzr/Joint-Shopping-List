@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useEffect} from 'react';
 // React Navigation
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -20,9 +20,20 @@ import {SafeAreaView, StatusBar, StyleSheet, Button} from 'react-native';
 import Collection from './components/screens/Collection';
 import List from './components/screens/List';
 
+// Socket.io test
+import io from 'socket.io-client';
+
 const Root = createStackNavigator();
 
 const App: () => React$Node = () => {
+  useEffect(() => {
+    const socket = io('http://localhost:8000');
+
+    socket.on('loadData', (data) => {
+      console.log('***data from socket***\n', data);
+    });
+  }, []);
+
   return (
     <Provider store={store}>
       <StatusBar barStyle="light-content" />
