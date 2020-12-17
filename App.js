@@ -10,9 +10,6 @@ import React, {useEffect} from 'react';
 // React Navigation
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-// Redux
-import {Provider} from 'react-redux';
-import store from './redux/store';
 
 import {SafeAreaView, StatusBar, StyleSheet, Button} from 'react-native';
 
@@ -35,7 +32,7 @@ const App: () => React$Node = () => {
   }, []);
 
   return (
-    <Provider store={store}>
+    <>
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.container}>
         <NavigationContainer>
@@ -62,7 +59,7 @@ const App: () => React$Node = () => {
           </Root.Navigator>
         </NavigationContainer>
       </SafeAreaView>
-    </Provider>
+    </>
   );
 };
 
