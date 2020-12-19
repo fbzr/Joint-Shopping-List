@@ -1,5 +1,14 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {nanoid} from 'nanoid';
+import SocketClient from '../../SocketClient';
+
+export const loadUsersCollection = createAsyncThunk(
+  'collection/loadUsersCollection',
+  async ({userId}, thunkAPI) => {
+    // make request to API
+    // return user's lists obj
+  },
+);
 
 export const addList = createAsyncThunk(
   'collection/addList',
@@ -86,75 +95,9 @@ export const patchItem = createAsyncThunk(
 const collectionSlice = createSlice({
   name: 'collection',
   initialState: {
-    lists: {
-      // a: {
-      //   id: 'a',
-      //   title: 'Test A',
-      //   createdAt: Date.now(),
-      //   items: {},
-      // },
-      // b: {
-      //   id: 'b',
-      //   title: 'Test B',
-      //   createdAt: Date.now(),
-      //   items: {},
-      // },
-      // c: {
-      //   id: 'c',
-      //   title: 'Test C',
-      //   createdAt: Date.now(),
-      //   items: {},
-      // },
-      // d: {
-      //   id: 'd',
-      //   title: 'Test D',
-      //   createdAt: Date.now(),
-      //   items: {},
-      // },
-      // e: {
-      //   id: 'e',
-      //   title: 'Test E',
-      //   createdAt: Date.now(),
-      //   items: {},
-      // },
-      // f: {
-      //   id: 'f',
-      //   title: 'Test F',
-      //   createdAt: Date.now(),
-      //   items: {},
-      // },
-      // g: {
-      //   id: 'g',
-      //   title: 'Test G',
-      //   createdAt: Date.now(),
-      //   items: {},
-      // },
-      // h: {
-      //   id: 'h',
-      //   title: 'Test H',
-      //   createdAt: Date.now(),
-      //   items: {},
-      // },
-      // i: {
-      //   id: 'i',
-      //   title: 'Test I',
-      //   createdAt: Date.now(),
-      //   items: {},
-      // },
-      // j: {
-      //   id: 'j',
-      //   title: 'Test J',
-      //   createdAt: Date.now(),
-      //   items: {},
-      // },
-      // k: {
-      //   id: 'k',
-      //   title: 'Test K',
-      //   createdAt: Date.now(),
-      //   items: {},
-      // },
-    },
+    lists: {},
     loading: 'idle',
+    socket: new SocketClient();
   },
   reducers: {},
   extraReducers: {
@@ -163,6 +106,7 @@ const collectionSlice = createSlice({
     [addList.fulfilled]: (state, action) => {
       const list = action.payload;
       state.lists[list.id] = list;
+      // TODO: call emmit method from SocketClient instance in state
     },
 
     [removeList.fulfilled]: (state, action) => {
